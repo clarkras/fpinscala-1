@@ -49,10 +49,26 @@ object List { // `List` companion object. Contains functions for creating and wo
   def product2(ns: List[Double]) = 
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
+  // My solution
+  def tail[A](l: List[A]): List[A] =
+    l match {
+      case Nil => l   // note: authors' solution throws exception
+      case Cons(_, t) => t
+  }
 
-  def tail[A](l: List[A]): List[A] = sys.error("todo")
-
-  def setHead[A](l: List[A], h: A): List[A] = sys.error("todo")
+  // My solution for setHead: I read it wrong, I thought it meant to insert and element
+  // at 0, but the book says to replace the element at 0.
+  def MySetHead[A](l: List[A], h: A): List[A] =
+    l match {
+      case Nil => Cons(h, Nil)
+      case Cons(prev_h, t) => Cons(h, Cons(prev_h, t))
+    }
+  // Authors' solution
+  def setHead[A](l: List[A], h: A): List[A] =
+    l match {
+      case Nil => sys.error("...")
+      case Cons(_, t) => t
+    }
 
   def drop[A](l: List[A], n: Int): List[A] = sys.error("todo")
 
