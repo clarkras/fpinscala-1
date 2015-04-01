@@ -118,18 +118,20 @@ object List {
     foldRight(l, 0)((_, acc) => acc + 1)
   }
 
+  // Ex. 3.10
   @annotation.tailrec
-  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
-    as match {
-      case Nil => z
-      case Cons(h, t) => foldLeft(t, f(z, h))(f)
-    }
+  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    case Cons(h, t) => foldLeft(t, f(z, h))(f)
   }
 
   // Ex. 3.11: sum, product, and length using foldLeft
   def sumLeft(l: List[Int]): Int = foldLeft(l, 0)(_ + _)
   def prodLeft(l: List[Double]): Double = foldLeft(l, 1.0)(_ * _)
   def lengthLeft[A](l: List[A]): Int = foldLeft(l, 0)((x, _) => x + 1)
+
+  // Ex 3.12: reverse using a fold method
+  def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((as, a) => Cons(a, as))
 
   def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }

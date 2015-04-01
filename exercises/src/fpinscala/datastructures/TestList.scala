@@ -16,6 +16,7 @@ object TestList {
       println(s"   z: $z, x: $x")
       z + x
     }))
+    println("reverse     " + reverse(List(1,2,3)))
 
   }
 }
