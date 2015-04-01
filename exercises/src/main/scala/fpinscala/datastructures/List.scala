@@ -133,5 +133,10 @@ object List {
   // Ex 3.12: reverse using a fold method
   def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((as, a) => Cons(a, as))
 
+  // Ex 3.14: append using a fold method
+  def appendRight[A](l: List[A], a: A): List[A] = foldRight(l, List[A]())((a, as) => {
+    case Nil => Cons()
+    as })
+
   def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }

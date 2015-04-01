@@ -17,6 +17,7 @@ object TestList {
       z + x
     }))
     println("reverse     " + reverse(List(1,2,3)))
+    println("reverse     " + reverse(List("a", "b", "c", 9)))
 
   }
 }
