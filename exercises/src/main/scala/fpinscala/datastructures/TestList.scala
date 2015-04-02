@@ -19,6 +19,7 @@ object TestList {
     println("add1_authors   " + add1_authors(List(1,2,3)))
     println("doubleToString " + doubleToString(List(1.1,2.2,3.3)))
     println("map            " + map(List(1,2,3))(_ * 100))
+    println("filter         " + filter(List(1,2,3,4,5))(_ % 2 == 0))
 
   }
 }

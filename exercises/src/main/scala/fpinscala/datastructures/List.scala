@@ -162,4 +162,8 @@ object List {
   // Ex 3.18 map
   def map[A, B](l: List[A])(f: A => B): List[B] =
     foldRight(l, Nil:List[B])((h,t) => Cons(f(h),t))
+
+  // Ex 3.19 filter
+  def filter[A](l: List[A])(f: A => Boolean): List[A] =
+    foldRight(l, Nil:List[A])((h,acc) => if (f(h)) Cons(h,acc) else acc)
 }
