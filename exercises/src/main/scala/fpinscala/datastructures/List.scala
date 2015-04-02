@@ -133,10 +133,33 @@ object List {
   // Ex 3.12: reverse using a fold method
   def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((as, a) => Cons(a, as))
 
-  // Ex 3.14: append using a fold method
-  def appendRight[A](l: List[A], a: A): List[A] = foldRight(l, List[A]())((a, as) => {
-    case Nil => Cons()
-    as })
+  // Ex 3.14: append using foldRight
+  // This works, but it's not nearly as elegant as the authors' solution.
+  def appendRight[A](a1: List[A], a2: List[A]): List[A] = {
+    val ax = foldRight(a2, List[A]())((a, as) => Cons(a, as))
+    foldRight(a1, ax)((a, as) => Cons(a, as))
+  }
 
-  def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
+  // Ex 3.15 concatenate a list of lists into a single list.
+  def flatten[A](l: List[List[A]]): List[A] = {
+    foldRight(l, List[A]())((as, acc) => {
+      append(as, acc)
+    })
+  }
+
+  // Ex 3.16 add 1 to each element
+  def add1(l: List[Int]): List[Int] =
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) => Cons(x+1, add1(xs))
+    }
+  // Authors' way of doing this uses foldRight
+  def add1_authors(l: List[Int]): List[Int] = foldRight(l, Nil:List[Int])((h,t) => Cons(h+1,t))
+
+  // Ex 3.17 turns each value in a List[Double] into a String
+  def doubleToString(l: List[Double]): List[String] = foldRight(l, Nil:List[String])((d,t) => Cons(d.toString, t))
+
+  // Ex 3.18 map
+  def map[A, B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, Nil:List[B])((h,t) => Cons(f(h),t))
 }
