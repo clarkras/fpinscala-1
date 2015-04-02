@@ -166,4 +166,11 @@ object List {
   // Ex 3.19 filter
   def filter[A](l: List[A])(f: A => Boolean): List[A] =
     foldRight(l, Nil:List[A])((h,acc) => if (f(h)) Cons(h,acc) else acc)
+
+  // Ex 3.20 flatMap
+  def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = {
+    foldRight(l, Nil:List[A])((h,acc) => {
+      // h is a list
+    }
+  }
 }
