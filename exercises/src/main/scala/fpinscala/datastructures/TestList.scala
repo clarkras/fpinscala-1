@@ -20,6 +20,8 @@ object TestList {
     println("doubleToString " + doubleToString(List(1.1,2.2,3.3)))
     println("map            " + map(List(1,2,3))(_ * 100))
     println("filter         " + filter(List(1,2,3,4,5))(_ % 2 == 0))
+    println("flatMap        " + flatMap(List(1,2,3,4,5))((x) => List(x + 10, x + 100)))
+    println("filter2        " + filter2(List(1,2,3,4,5))(_ % 2 == 0))
 
   }
 }

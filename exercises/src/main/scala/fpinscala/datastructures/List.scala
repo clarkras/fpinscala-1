@@ -164,10 +164,12 @@ object List {  // `List` companion object. Contains functions for creating and w
   def filter[A](l: List[A])(f: A => Boolean): List[A] =
     foldRight(l, Nil:List[A])((h,acc) => if (f(h)) Cons(h,acc) else acc)
 
-  // Ex 3.20 flatMap
-  def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = {
-    foldRight(l, Nil:List[A])((h,acc) => {
-      // h is a list
-    }
-  }
+  // Ex 3.20 flatMap: works like map except that the function given will return a list
+  // instead of a single result, and that list should be inserted into the final resulting list.
+  def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] =
+    foldRight(l, Nil:List[B])((h,acc) => append(f(h), acc))
+
+  // Ex 3.21: Use flatMap to implement filter.
+  def filter2[A](l: List[A])(f: A => Boolean): List[A] =
+    flatMap(l)((h) => if (f(h)) List(h) else Nil:List[A])
 }
