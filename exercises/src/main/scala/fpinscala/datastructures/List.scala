@@ -172,4 +172,41 @@ object List {  // `List` companion object. Contains functions for creating and w
   // Ex 3.21: Use flatMap to implement filter.
   def filter2[A](l: List[A])(f: A => Boolean): List[A] =
     flatMap(l)((h) => if (f(h)) List(h) else Nil:List[A])
+
+  // Ex 3.22
+  def zipInt(a1: List[Int], a2: List[Int]): List[Int] = (a1, a2) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(x, xs), Cons(y, ys)) => Cons(x + y, zipInt(xs, ys))
+  }
+
+  def zipWith[A,B,C](a1: List[A], a2: List[B])(f: (A,B) => C): List[C] = (a1, a2) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zipWith(xs, ys)(f))
+  }
+
+  @annotation.tailrec
+  def startsWith[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+    case (Nil, _) => false
+    case (_, Nil) => false
+    case (Cons(a, as), Cons(b, bs)) =>
+      if (a == b) true
+      else startsWith(as, bs)
+  }
+
+  @annotation.tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = {
+    println(s"==== sup: $sup, sub: $sub")
+    if (sup == sub) true
+    else
+      sup match {
+        case Nil => false
+        case Cons(_, t) =>
+          if (length(sub) > length(t)) false
+          else if (sub == t) true
+          else if (startsWith(t, sub)) true
+          else hasSubsequence(t, sub)
+      }
+  }
 }

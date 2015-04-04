@@ -22,6 +22,12 @@ object TestList {
     println("filter         " + filter(List(1,2,3,4,5))(_ % 2 == 0))
     println("flatMap        " + flatMap(List(1,2,3,4,5))((x) => List(x + 10, x + 100)))
     println("filter2        " + filter2(List(1,2,3,4,5))(_ % 2 == 0))
-
+    println("zipInt         " + zipInt(List(1,2,3), List(4,5,6)))
+//    Can't figure out how to call this ...
+//    println("zipWith        " + zipInt(List(1,2,3), List(4,5,6))((x,y) => x+y))
+    println("hasSubSequence " + hasSubsequence(List(1,2,3), List(4,5,6)))
+    println("hasSubSequence " + hasSubsequence(List(1,2,3), List(2,3)))
+    println("hasSubSequence " + hasSubsequence(List(1,2,3), List(1,2)))
+    println("hasSubSequence " + hasSubsequence(List(1,2,3), List(2)))
   }
 }
