@@ -198,15 +198,14 @@ object List {  // `List` companion object. Contains functions for creating and w
     case (Nil, _) => false
     case (_, Nil) => true
     case (Cons(a, as), Cons(b, bs)) =>
-      println(s"startWith $a, $b")
       if (a == b) startsWith(as, bs)
       else false
   }
 
   @annotation.tailrec
   def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = {
-    println(s"==== sup: $sup, sub: $sub")
     if (sup == sub) true
+    else if (startsWith(sup, sub)) true
     else
       sup match {
         case Nil => false

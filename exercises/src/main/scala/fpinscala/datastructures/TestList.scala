@@ -25,6 +25,7 @@ object TestList {
     println("zipInt         " + zipInt(List(1,2,3), List(4,5,6)))
 //    Can't figure out how to call this ...
 //    println("zipWith        " + zipInt(List(1,2,3), List(4,5,6))((x,y) => x+y))
+    println("startsWith     " + startsWith(List(1,2,3), List(1,2)))
     println("hasSubSequence " + hasSubsequence(List(1,2,3), List(4,5,6)))
     println("hasSubSequence " + hasSubsequence(List(1,2,3), List(2,3)))
     println("hasSubSequence " + hasSubsequence(List(1,2,3), List(1,2)))
