@@ -186,13 +186,21 @@ object List {  // `List` companion object. Contains functions for creating and w
     case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zipWith(xs, ys)(f))
   }
 
+  /** Returns true if sup start with sub.
+    *
+    * @param sup superstring
+    * @param sub substring
+    * @tparam A any type
+    * @return Boolean
+    */
   @annotation.tailrec
   def startsWith[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
     case (Nil, _) => false
-    case (_, Nil) => false
+    case (_, Nil) => true
     case (Cons(a, as), Cons(b, bs)) =>
-      if (a == b) true
-      else startsWith(as, bs)
+      println(s"startWith $a, $b")
+      if (a == b) startsWith(as, bs)
+      else false
   }
 
   @annotation.tailrec
