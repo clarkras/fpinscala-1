@@ -1,6 +1,6 @@
 package fpinscala.datastructures
 
-object TestList {
+object RunList {
   import List._
 
   def main(args: Array[String]): Unit = {
