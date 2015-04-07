@@ -14,5 +14,8 @@ object RunTree {
     println("depth       " + depth(leftTree))
     println("depth       " + depth(mainTree))
     println("map         " + map(mainTree)(_ * 10))
+    println("sizeViaFold " + sizeViaFold(mainTree))
+    println("maxViaFold  " + maxViaFold(mainTree))
+    println("depthViaFold " + depthViaFold(mainTree))
   }
 }
