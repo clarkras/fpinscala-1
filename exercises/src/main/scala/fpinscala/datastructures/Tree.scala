@@ -34,9 +34,14 @@ object Tree {
   def sizeViaFold[A](t: Tree[A]): Int = fold(t)(a => 1)(1 + _ + _)
 
   def maxViaFold(t: Tree[Int]): Int = fold(t)(a => a)((l,r) => l max r)
+  def maxViaFold(t: Tree[Int]): Int = fold(t)(a => a)(_ max _)
 
   def depthViaFold[A](t: Tree[A]): Int = fold(t)(a => 0)(1 + _ max _)
 
+  // This doesn't work, because scalac complains of a type mismatch.
   def mapViaFold[A,B](t: Tree[A])(f: A => B): Tree[B] = fold(t)(a => Leaf(f(a)))((l,r) => Branch(l,r))
+  // It requires a type annotation (how would I have known that without looking at the answer?)
+  def mapViaFold[A,B](t: Tree[A])(f: A => B): Tree[B] = fold(t)(a => Leaf(f(a)): Tree[B])((l,r) => Branch(l,r))
+
 
 }
