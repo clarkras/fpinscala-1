@@ -1,7 +1,7 @@
 package fpinscala.errorhandling
 
 
-import scala.{Option => _, Some => _, Either => _, _} // hide std library `Option`, `Some` and `Either`, since we are writing our own in this chapter
+import scala.{Either => _, Option => _, Some => _} // hide std library `Option`, `Some` and `Either`, since we are writing our own in this chapter
 
 sealed trait Option[+A] {
   def map[B](f: A => B): Option[B] = this match {
@@ -62,7 +62,11 @@ object Option {
       mean(xs.map(x => math.pow(x - m, 2))))
 
 
-  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    val aval = a getOrElse(return None)
+    val bval = b getOrElse(return None)
+    Some(f(aval, bval))
+  }
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] = sys.error("todo")
 
