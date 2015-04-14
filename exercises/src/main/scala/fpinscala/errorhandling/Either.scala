@@ -19,15 +19,23 @@ sealed trait Either[+E,+A] {
    case Left(_) => b
  }
 
- def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] = sys.error("todo")
+ def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
+   // I never would have gotten this--there is some new syntax here.
+   for { a <- this; b1 <- b } yield f(a,b1)
 }
 case class Left[+E](get: E) extends Either[E,Nothing]
 case class Right[+A](get: A) extends Either[Nothing,A]
 
 object Either {
-  def traverse[E,A,B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] = sys.error("todo")
+  def traverse[E,A,B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+    es match {
+      case Nil => Right(Nil)
+      // again, I don't understand this syntax
+      case h::t => (f(h) map2 traverse(t)(f))(_ :: _)
+    }
 
-  def sequence[E,A](es: List[Either[E,A]]): Either[E,List[A]] = sys.error("todo")
+  def sequence[E,A](es: List[Either[E,A]]): Either[E,List[A]] =
+    traverse(es)(x => x)
 
   def mean(xs: IndexedSeq[Double]): Either[String, Double] = 
     if (xs.isEmpty) 
