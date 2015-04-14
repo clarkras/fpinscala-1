@@ -61,7 +61,12 @@ object Option {
     mean(xs) flatMap (m =>
       mean(xs.map(x => math.pow(x - m, 2))))
 
-  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
+
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    val aval = a getOrElse(return None)
+    val bval = b getOrElse(return None)
+    Some(f(aval, bval))
+  }
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] = {
     a match {
