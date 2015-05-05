@@ -28,17 +28,21 @@ trait Stream[+A] {
   }
 
   def take(n: Int): Stream[A] = this match {
-    case Cons(h, t) if (n > 1) => cons(h(), t().take(n-1))
-    case Cons(h, _) if (n == 1) => cons(h(), empty)
+    case Cons(h, t) if n > 1 => cons(h(), t().take(n-1))
+    case Cons(h, _) if n == 1 => cons(h(), empty)
     case _ => empty
   }
 
-  def drop(n: Int): Stream[A] = this match {
-    case Cons(_, t) if (n > 0) => t().drop(n-1)
-    case Cons(_) if (n == 0) => this
+  @annotation.tailrec
+  final def drop(n: Int): Stream[A] = this match {
+    case Cons(_, t) if n > 0 => t().drop(n-1)
+    case Cons(_) if n == 0 => this
   }
 
-  def takeWhile(p: A => Boolean): Stream[A] = sys.error("todo")
+  def takeWhile(p: A => Boolean): Stream[A] = this match {
+    case Cons(h, t) if p(h()) => cons(h(), t().takeWhile(p))
+    case Cons(_) => empty
+  }
 
   def forAll(p: A => Boolean): Boolean = sys.error("todo")
 
